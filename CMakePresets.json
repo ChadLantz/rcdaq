@@ -1,0 +1,38 @@
+{
+    "version": 5,
+    "configurePresets": [
+        {
+            "name": "linux-base",
+            "generator": "Ninja Multi-Config",
+            "binaryDir": "${sourceDir}/out/build/",
+            "environment": {
+                "ROOTSYS": "${penv:ROOTSYS}"
+            },
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+                "CMAKE_C_COMPILER": "/opt/rh/gcc-toolset-15/root/usr/bin/gcc",
+                "CMAKE_CXX_COMPILER": "/opt/rh/gcc-toolset-15/root/usr/bin/g++"
+            },
+            "condition": {
+                "type": "equals",
+                "lhs": "${hostSystemName}",
+                "rhs": "Linux"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-base",
+            "configuration": "Release",
+            "jobs": 8
+        },
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-base",
+            "configuration": "Debug",
+            "jobs": 8
+        }
+    ]
+}
